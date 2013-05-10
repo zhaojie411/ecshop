@@ -12,7 +12,7 @@
  * $Author: liubo $
  * $Id: lib_base.php 17217 2011-01-19 06:29:08Z liubo $
 */
-
+error_reporting(0);
 if (!defined('IN_ECS'))
 {
     die('Hacking attempt');
@@ -341,6 +341,7 @@ function send_mail($name, $email, $subject, $content, $type = 0, $notification=f
  */
 function gd_version()
 {
+    error_reporting(0);
     include_once(ROOT_PATH . 'includes/cls_image.php');
 
     return cls_image::gd_version();

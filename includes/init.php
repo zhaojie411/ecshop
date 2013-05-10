@@ -18,8 +18,8 @@ if (!defined('IN_ECS'))
     die('Hacking attempt');
 }
 
-error_reporting(E_ALL);
-
+// error_reporting(E_ALL);
+error_reporting(0);
 if (__FILE__ == '')
 {
     die('Fatal error code: 0');
@@ -38,7 +38,7 @@ if (!file_exists(ROOT_PATH . 'data/install.lock') && !file_exists(ROOT_PATH . 'i
 
 /* 初始化设置 */
 @ini_set('memory_limit',          '64M');
-@ini_set('session.cache_expire',  180);
+@ini_set('session.cache_expire',  0);
 @ini_set('session.use_trans_sid', 0);
 @ini_set('session.use_cookies',   1);
 @ini_set('session.auto_start',    0);
@@ -283,11 +283,13 @@ if (!defined('INIT_NO_USERS'))
 
 if ((DEBUG_MODE & 1) == 1)
 {
-    error_reporting(E_ALL);
+    // error_reporting(E_ALL);
+    error_reporting(0);
 }
 else
 {
-    error_reporting(E_ALL ^ (E_NOTICE | E_WARNING)); 
+    // error_reporting(E_ALL ^ (E_NOTICE | E_WARNING)); 
+    error_reporting(0);
 }
 if ((DEBUG_MODE & 4) == 4)
 {
@@ -303,5 +305,23 @@ else
 {
     ob_start();
 }
+if (is_temps())
+{
+        
+    clear_all_files();
+    $sql="UPDATE ".$ecs->table('shop_config') ."SET value=".time()." WHERE code='"."last_clear_time'";
+    $db->query($sql);
+}
 
+function is_temps()
+{
+    if(time()-$_CFG['last_clear_time']<1)
+    {
+        return(false);
+    }
+    else
+    {
+        return(true);
+    }
+}
 ?>

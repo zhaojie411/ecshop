@@ -12,7 +12,7 @@
  * $Author: liubo $
  * $Id: cls_template.php 17217 2011-01-19 06:29:08Z liubo $
  */
-
+error_reporting(0);
 class cls_template
 {
     var $template_dir   = '';
@@ -415,7 +415,10 @@ class cls_template
         }
         else
         {
-            $tag_sel = array_shift(explode(' ', $tag));
+          
+            $tag_arr = explode(' ', $tag); 
+            $tag_sel = array_shift($tag_arr);
+            //unset($tag[0]);
             switch ($tag_sel)
             {
                 case 'if':

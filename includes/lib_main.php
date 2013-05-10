@@ -12,7 +12,7 @@
  * $Author: liubo $
  * $Id: lib_main.php 17217 2011-01-19 06:29:08Z liubo $
 */
-
+error_reporting(0);
 if (!defined('IN_ECS'))
 {
     die('Hacking attempt');
@@ -1326,6 +1326,7 @@ function get_tags($goods_id = 0, $user_id = 0)
  */
 function get_dyna_libs($theme, $tmp)
 {
+    error_reporting(0);
     $ext = end(explode('.', $tmp));
     $tmp = basename($tmp,".$ext");
     $sql = 'SELECT region, library, sort_order, id, number, type' .
